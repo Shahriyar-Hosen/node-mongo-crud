@@ -27,7 +27,7 @@ async function run(){
     console.log(`User insert with id: ${result.insertedId}`);
   }
   finally{
-    await client.close()
+    // await client.close()
   }
 }
 
