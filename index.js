@@ -31,10 +31,10 @@ async function run() {
       res.send(users);
     });
 
-    app.get("/user/:id", (req, res) => {
+    app.get("/user/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: objectId(id) };
-      const result = userCollection.findOne(query);
+      const result = await userCollection.findOne(query);
       res.send(result);
     });
 
