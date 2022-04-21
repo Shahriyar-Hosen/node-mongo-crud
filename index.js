@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const { MongoClient, ServerApiVersion } = require("mongodb");
-const objectId = require("mongodb").objectId;
+const objectId = require("mongodb").ObjectId;
 const port = process.env.PORT || 5000;
 
 app.use(cors());
@@ -38,14 +38,16 @@ async function run() {
       console.log(`User insert with id: ${result.insertedId}`);
       res.send({ result: "success" });
     });
+
+    app.delete("/user/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: objectId(id) };
+      const result = await userCollection.deleteOne(query);
+      res.send(result);
+    });
   } finally {
     // await client.close()
   }
-
-  app.delete("/user/:id", async (req, res) => {
-    const id = req.params.id;
-    const query = { _id: objectId(id) };
-  });
 }
 
 run().catch(console.dir);
