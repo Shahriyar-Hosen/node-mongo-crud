@@ -18,20 +18,26 @@ const client = new MongoClient(uri, {
   serverApi: ServerApiVersion.v1,
 });
 
-async function run(){
-  try{
-    await client.connect()
+async function run() {
+  try {
+    await client.connect();
     const userCollection = client.db("foodExpress").collection("user");
-    const user = {name: 'salman', email: 'salman@mail.com'};
-    const result = await userCollection.insertOne(user);
-    console.log(`User insert with id: ${result.insertedId}`);
-  }
-  finally{
+    app.post("/user", (req, res) => {
+      const newUser = req.body;
+      console.log("New user adding", newUser);
+      res.send({ result: "success" });
+    });
+
+    // const result = await userCollection.insertOne(user);
+    // console.log(`User insert with id: ${result.insertedId}`);
+  
+  } 
+  finally {
     // await client.close()
   }
 }
 
-run().catch(console.dir)
+run().catch(console.dir);
 
 app.get("/", (req, res) => {
   res.send("Running My Node Mongo Server");
