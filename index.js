@@ -22,17 +22,22 @@ async function run() {
   try {
     await client.connect();
     const userCollection = client.db("foodExpress").collection("user");
-    app.post("/user", (req, res) => {
-      const newUser = req.body;
-      console.log("New user adding", newUser);
-      res.send({ result: "success" });
+
+    app.get("/user", async (req, res) => {
+      const query = {};
+      const cursor = userCollection.find(query);
+      const users = await cursor.toArray();
+      res.send(users);
     });
 
-    // const result = await userCollection.insertOne(user);
-    // console.log(`User insert with id: ${result.insertedId}`);
-  
-  } 
-  finally {
+    app.post("/user", async (req, res) => {
+      const newUser = req.body;
+      console.log("New user adding", newUser);
+      const result = await userCollection.insertOne(newUser);
+      console.log(`User insert with id: ${result.insertedId}`);
+      res.send({ result: "success" });
+    });
+  } finally {
     // await client.close()
   }
 }
