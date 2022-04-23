@@ -32,6 +32,7 @@ async function run() {
       const users = await cursor.toArray();
       res.send(users);
     });
+    // -------------------------------------------
 
     // Get  AP to Read by ID
 
@@ -41,6 +42,7 @@ async function run() {
       const result = await userCollection.findOne(query);
       res.send(result);
     });
+    // -------------------------------------------
 
     //  Get  AP to Read by  user name
     // --------------------------------------
@@ -54,6 +56,7 @@ async function run() {
       console.log(`User insert with id: ${result.insertedId}`);
       res.send({ result: "success" });
     });
+    // -------------------------------------------
 
     //  Update user data in db
 
@@ -69,6 +72,7 @@ async function run() {
 
       res.send(result);
     });
+    // -------------------------------------------
 
     //  Delete user in db
 
@@ -78,6 +82,7 @@ async function run() {
       const result = await userCollection.deleteOne(query);
       res.send(result);
     });
+    // -------------------------------------------
   } finally {
     // await client.close()
   }
