@@ -8,20 +8,6 @@ app.use(cors());
 app.use(express.json());
 // ---------------------------
 
-// async await function
-async function run() {
-    
-    // try catch finally
-    try {
-        
-    } finally {
-        
-    }
-}
-// call function catch (console dir)
-run().catch(console.dir)
-// --------------------------------------------
-
 // http://localhost:5000/
 app.get("/", (req, res) => {
   res.send("Hello World!");
