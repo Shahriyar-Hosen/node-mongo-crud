@@ -24,12 +24,16 @@ async function run() {
     await client.connect();
     const userCollection = client.db("foodExpress").collection("user");
 
+    // Get  api to read all user
+
     app.get("/user", async (req, res) => {
       const query = {};
       const cursor = userCollection.find(query);
       const users = await cursor.toArray();
       res.send(users);
     });
+
+    // Get  AP to Read by ID
 
     app.get("/user/:id", async (req, res) => {
       const id = req.params.id;
@@ -38,6 +42,11 @@ async function run() {
       res.send(result);
     });
 
+    //  Get  AP to Read by  user name
+    // --------------------------------------
+
+    // Create user api in db
+
     app.post("/user", async (req, res) => {
       const newUser = req.body;
       console.log("New user adding ", newUser);
@@ -45,6 +54,8 @@ async function run() {
       console.log(`User insert with id: ${result.insertedId}`);
       res.send({ result: "success" });
     });
+
+    //  Update user data in db
 
     app.put("/user/:id", async (req, res) => {
       const id = req.params.id;
@@ -58,6 +69,8 @@ async function run() {
 
       res.send(result);
     });
+
+    //  Delete user in db
 
     app.delete("/user/:id", async (req, res) => {
       const id = req.params.id;
