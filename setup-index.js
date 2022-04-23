@@ -8,6 +8,7 @@ app.use(cors());
 app.use(express.json());
 // ---------------------------
 
+// http://localhost:5000/
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
