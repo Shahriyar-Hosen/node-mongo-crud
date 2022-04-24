@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 require("dotenv").config();
 const objectId = require("mongodb").ObjectId;
 const port = process.env.PORT || 4000;
@@ -35,15 +35,15 @@ async function run() {
     });
     // -------------------------------------------
 
-     // Get  api to read limited user
+    // Get  api to read limited user
 
     app.get("/product", async (req, res) => {
-      console.log('query', req.query);
+      console.log("query", req.query);
       const query = {};
       const cursor = userCollection.find(query);
       const products = await cursor.limit(15).toArray();
       res.send(products);
-    }); 
+    });
 
     // --------------------------------------------------------
 
@@ -94,7 +94,20 @@ async function run() {
       console.log(`User insert with id: ${result.insertedId}`);
       res.send({ result: "success" });
     });
-    // -------------------------------------------
+    // --------------------------------------------------------
+
+    // Use Post to load some users using keys
+    // Use post to get users by ids
+    app.post("/userByKeys", async (req, res) => {
+      const keys = req.body;
+      const ids = keys.map((id) => ObjectId(id));
+      const query = { _id: { $in: ids } };
+      const cursor = productCollection.find(query);
+      const products = await cursor.toArray();
+      console.log(keys);
+      res.send(products);
+    });
+    // ----------------------------------------------------
 
     //  Update user data in db
 
