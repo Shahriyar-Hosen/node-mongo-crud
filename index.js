@@ -45,7 +45,32 @@ async function run() {
     });
     // -------------------------------------------
 
-    //  Get  AP to Read by  user name
+    //  Get  AP to Read by  Search query
+
+    // Load data based on the page number and size
+    app.get("/user", async (req, res) => {
+      console.log(req.query);
+      const page = parseInt(req.query.page);
+      const size = parseInt(req.query.size);
+
+      const query = {};
+      const cursor = userCollection.find(query);
+      let users;
+
+      if (page || size) {
+        // 0 --> skip: 0*10 get: 0-10 (10)
+        // 1 --> skip: 1*10 get: 11-20 (10)
+        // 2 --> skip: 2*10 get: 21-30 (10)
+        users = await cursor
+          .skip(page * size)
+          .limit(size)
+          .toArray();
+      } else {
+        users = await cursor.toArray();
+      }
+
+      res.send(users);
+    });
     // --------------------------------------
 
     // Create user api in db
@@ -94,7 +119,6 @@ async function run() {
       res.send({ count });
     });
     // -------------------------------------------
-    
   } finally {
     // await client.close()
   }
