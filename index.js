@@ -35,6 +35,18 @@ async function run() {
     });
     // -------------------------------------------
 
+     // Get  api to read limited user
+
+    app.get("/product", async (req, res) => {
+      console.log('query', req.query);
+      const query = {};
+      const cursor = userCollection.find(query);
+      const products = await cursor.limit(15).toArray();
+      res.send(products);
+    }); 
+
+    // --------------------------------------------------------
+
     // Get  AP to Read by ID
 
     app.get("/user/:id", async (req, res) => {
