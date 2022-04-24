@@ -86,6 +86,7 @@ async function run() {
     // -------------------------------------------
 
     // Pagination
+
     app.get("/userCount", async (req, res) => {
       const query = {};
       const cursor = userCollection.find(query);
@@ -93,6 +94,7 @@ async function run() {
       res.send({ count });
     });
     // -------------------------------------------
+    
   } finally {
     // await client.close()
   }
