@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const { MongoClient, ServerApiVersion } = require("mongodb");
-require('dotenv').config()
+require("dotenv").config();
 const objectId = require("mongodb").ObjectId;
 const port = process.env.PORT || 5000;
 
@@ -82,6 +82,15 @@ async function run() {
       const query = { _id: objectId(id) };
       const result = await userCollection.deleteOne(query);
       res.send(result);
+    });
+    // -------------------------------------------
+
+    // Pagination
+    app.get("/userCount", async (req, res) => {
+      const query = {};
+      const cursor = userCollection.find(query);
+      const count = await cursor.count();
+      res.send({ count });
     });
     // -------------------------------------------
   } finally {
