@@ -4,7 +4,7 @@ const cors = require("cors");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 require("dotenv").config();
 const objectId = require("mongodb").ObjectId;
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 
 // Middleware
 app.use(cors());
@@ -113,9 +113,8 @@ async function run() {
     // Pagination
 
     app.get("/userCount", async (req, res) => {
-      const query = {};
-      const cursor = userCollection.find(query);
-      const count = await cursor.count();
+      const count = await userCollection.estimatedDocumentCount();
+      console.log(count);
       res.send({ count });
     });
     // -------------------------------------------
