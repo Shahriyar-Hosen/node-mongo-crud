@@ -59,6 +59,13 @@ async function run() {
 
     //  Get  AP to Read by  Search query
 
+    app.get("order", async (req, res) => {
+      const query = { email: req.query.email };
+      const cursor = userCollection.find(query);
+      const order = await cursor.toArray();
+      res.send(order);
+    });
+
     // Load data based on the page number and size
     app.get("/user", async (req, res) => {
       console.log(req.query);
