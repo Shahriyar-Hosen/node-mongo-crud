@@ -59,7 +59,7 @@ async function run() {
 
     //  Get  AP to Read by  Search query
 
-    app.get("order", async (req, res) => {
+    app.get("/order", async (req, res) => {
       const query = { email: req.query.email };
       const cursor = userCollection.find(query);
       const order = await cursor.toArray();
