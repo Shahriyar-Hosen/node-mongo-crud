@@ -25,6 +25,19 @@ async function run() {
     await client.connect();
     const userCollection = client.db("foodExpress").collection("user");
 
+    // JWT Token
+    // AUTH
+    app.post("/login", async (req, res) => {
+      // Secret key
+      /* Terminal - node - require('crypto').randomBytes(64).toString('hex') - cp token - .env create ACCESS_TOKEN_SECRET & than cp token*/
+
+      const user = req.body;
+      const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: "1d",
+      });
+      res.send({accessToken})
+    });
+
     // Get  api to read all user
 
     app.get("/user", async (req, res) => {

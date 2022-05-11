@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+require('dotenv').config()
 const port = process.env.PORT || 5000;
 
 // Middleware
@@ -13,6 +14,8 @@ async function run() {
     
     // try catch finally
     try {
+      await client.connect();
+      // const userCollection = client.db("foodExpress").collection("user");
         
     } finally {
         
