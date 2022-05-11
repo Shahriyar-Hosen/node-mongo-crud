@@ -15,6 +15,7 @@ async function run() {
     // try catch finally
     try {
       await client.connect();
+      console.log("Database Connected YaY!")
       // const userCollection = client.db("foodExpress").collection("user");
         
     } finally {
