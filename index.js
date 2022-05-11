@@ -43,8 +43,8 @@ async function run() {
     app.get("/user", async (req, res) => {
       const query = {};
       const cursor = userCollection.find(query);
-      const users = await cursor.toArray();
-      res.send(users);
+      const result = await cursor.toArray();
+      res.send(result);
     });
     // -------------------------------------------
 
@@ -54,8 +54,8 @@ async function run() {
       console.log("query", req.query);
       const query = {};
       const cursor = userCollection.find(query);
-      const products = await cursor.limit(15).toArray();
-      res.send(products);
+      const result = await cursor.limit(15).toArray();
+      res.send(result);
     });
 
     // --------------------------------------------------------
